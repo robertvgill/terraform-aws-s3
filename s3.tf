@@ -1,20 +1,18 @@
-resource "aws_s3_bucket" "terraform-state-storage-s3" {
-  bucket = "robertgillsg-terraform-remote-state-storage-s3"
-  # Enable versioning so we can see the full revision history of our
-  # state files
+# Terraform version
+terraform {
+  required_version = ">= 0.12"
+}
+
+# Create the S3 bucket
+resource "aws_s3_bucket" "terraform_state_s3" {
+  bucket = var.bucket_name
+
+# Enable versioning
   versioning {
     enabled = true
   }
 
-  lifecycle {
-    prevent_destroy = false
-  }
-
-  tags = {
-    Name = "S3 Remote Terraform State Store"
-  }
-
-  # Enable server-side encryption by default
+# Enable server-side encryption by default
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
