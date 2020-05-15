@@ -14,6 +14,6 @@ output "s3_bucket_region" {
 }
 
 output "dynamodb_table_name" {
-  value       = aws_dynamodb_table.terraform_locks.name
-  description = "The name of the DynamoDB table"
+  value       = element(concat(aws_dynamodb_table.terraform_locks.*.name, list("")), 0)
+  description = "The name of the DynamoDB table."
 }
