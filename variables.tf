@@ -18,9 +18,57 @@ variable "profile" {
 }
 
 # S3 Bucket Configuration
-variable "bucket_name" {
-  description = "The name of the bucket. If omitted, Terraform will assign a random, unique name."
+variable "arn_format" {
+  type        = string
+  default     = "arn:aws"
+  description = "ARN format to be used"
+}
+
+variable "prevent_unencrypted_uploads" {
+  type        = bool
+  default     = true
+  description = "Prevent uploads of unencrypted objects to S3"
+}
+
+variable "s3_bucket_name" {
+  description = "The name of the bucket. If omitted, Terraform will assign a random, unique name"
   type = string
+}
+
+variable "acl" {
+  type        = string
+  description = "The canned ACL to apply to the S3 bucket"
+  default     = "private"
+}
+
+variable "force_destroy" {
+  type        = bool
+  description = "A boolean that indicates the S3 bucket can be destroyed even if it contains objects. These objects are not recoverable"
+  default     = false
+}
+
+variable "mfa_delete" {
+  type        = bool
+  description = "A boolean that indicates that versions of S3 objects can only be deleted with MFA. ( Terraform cannot apply changes of this value; https://github.com/terraform-providers/terraform-provider-aws/issues/629 )"
+  default     = false
+}
+
+variable "enable_server_side_encryption" {
+  type        = bool
+  description = "Enable DynamoDB server-side encryption"
+  default     = true
+}
+
+variable "terraform_backend_config_file_name" {
+  type        = string
+  default     = "terraform.tf"
+  description = "Name of terraform backend config file"
+}
+
+variable "terraform_backend_config_file_path" {
+  type        = string
+  default     = "global/s3/"
+  description = "The path to terrafrom project directory"
 }
 
 variable "dynamodb_table_name" {
