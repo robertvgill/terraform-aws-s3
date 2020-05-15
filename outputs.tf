@@ -1,6 +1,16 @@
+output "s3_bucket_id" {
+  description = "The name of the bucket."
+  value       = element(concat(aws_s3_bucket.terraform_state.*.id, list("")), 0)
+}
+
 output "s3_bucket_arn" {
-  value       = aws_s3_bucket.terraform_state_s3.arn
-  description = "The ARN of the S3 bucket"
+  description = "The ARN of the bucket. Will be of format arn:aws:s3:::bucketname."
+  value       = element(concat(aws_s3_bucket.terraform_state.*.arn, list("")), 0)
+}
+
+output "s3_bucket_region" {
+  description = "The AWS region this bucket resides in."
+  value       = element(concat(aws_s3_bucket.terraform_state.*.region, list("")), 0)
 }
 
 output "dynamodb_table_name" {
