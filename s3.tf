@@ -103,7 +103,7 @@ resource "aws_s3_bucket" "terraform_state" {
   acl           = var.acl
   region        = var.region
   force_destroy = var.force_destroy
-//  policy        = local.policy
+  policy        = local.policy
 
 # Enable versioning
   versioning {
